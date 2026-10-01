@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Sore! ✨</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: 'Quicksand', sans-serif;
+            background-color: #f4f4f5; /* Abu-abu sangat terang (minimalis) */
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #18181b;
+            overflow: hidden;
+        }
+
+        .card {
+            background: #ffffff;
+            padding: 30px 25px;
+            border-radius: 24px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            width: 100%;
+            max-width: 340px;
+            text-align: left;
+            position: relative;
+            display: none;
+            animation: slideUp 0.4s ease-out;
+            border: 2px solid #cbd5e1; /* Border lebih jelas dan tebal */
+        }
+
+        #step-1 { display: block; }
+
+        @keyframes slideUp {
+            0% { transform: translateY(20px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+        
+        .cute-gif {
+            width: 65px;
+            margin-bottom: 15px;
+        }
+
+        h1 {
+            font-size: 20px;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        p {
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #52525b;
+        }
+
+        .btn-container {
+            display: flex;
+            gap: 12px;
+            position: relative;
+            height: 45px;
+        }
+
+        button {
+            padding: 0 20px;
+            height: 45px;
+            font-size: 15px;
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 700;
+            border: none;
+            border-radius: 14px;
+            cursor: pointer;
+            transition: transform 0.1s, background 0.2s;
+        }
+
+        .btn-yes {
+            background: #18181b; 
+            color: #ffffff;
+            flex: 1;
+        }
+
+        .btn-yes:active {
+            transform: scale(0.95);
+        }
+
+        .btn-no {
+            background: #ef4444; /* Warna Merah */
+            color: #ffffff; /* Teks Putih */
+            width: 100px;
+            position: absolute;
+            right: 0;
+            transition: top 0.2s, left 0.2s;
+            box-shadow: 0 4px 10px rgba(239, 68, 68, 0.3);
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- TAHAP 1 -->
+    <div class="card" id="step-1">
+        <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1fae3/512.gif" alt="Smile" class="cute-gif">
+        <h1>Btw... 👋</h1>
+        <p>Thanks yah udah nemenin ngobrol hari ini. Ngobrol sama kamu asik bngt. <br><br> Besok-besok kita ngobrol lagi ya? 👀</p>
+        
+        <div class="btn-container">
+            <button class="btn-yes" onclick="nextStep(2)">Gasss! 🔥</button>
+            <button class="btn-no" id="btn-no-1" onmouseover="dodge('btn-no-1', event)" ontouchstart="dodge('btn-no-1', event)">Gak 🏃</button>
+        </div>
+    </div>
+
+    <!-- TAHAP 2 -->
+    <div class="card" id="step-2">
+        <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f973/512.gif" alt="Party" class="cute-gif">
+        <h1>Asiiik! 🎉</h1>
+        <p>Yaudah, sekarang istirahat. Udah malem juga, besok Kerja<br><br>Goodnight, have a good rest! ✨🛌</p>
+    </div>
+
+    <script>
+        // Logika Kabur yang Responsif untuk Mobile
+        function dodge(btnId, e) {
+            if (e && e.type === 'touchstart') e.preventDefault(); 
+            
+            const btn = document.getElementById(btnId);
+            const btnRect = btn.getBoundingClientRect();
+            
+            // Batas layar yang aman
+            const maxX = window.innerWidth - btnRect.width - 20;
+            const maxY = window.innerHeight - btnRect.height - 20;
+            
+            const randomX = Math.max(20, Math.floor(Math.random() * maxX));
+            const randomY = Math.max(20, Math.floor(Math.random() * maxY));
+            
+            btn.style.position = 'fixed';
+            btn.style.left = randomX + 'px';
+            btn.style.top = randomY + 'px';
+            btn.style.right = 'auto';
+            btn.style.bottom = 'auto';
+            btn.style.zIndex = '999'; // Pastikan tombol selalu di atas
+        }
+
+        function nextStep(step) {
+            document.querySelectorAll('.card').forEach(el => el.style.display = 'none');
+            document.getElementById('step-' + step).style.display = 'block';
+        }
+    </script>
+</body>
+</html>
